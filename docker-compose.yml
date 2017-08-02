@@ -1,0 +1,17 @@
+version: '2'
+services:
+  db:
+    build: ./DATABASE
+    ports:
+      - "3307:3306"
+  app:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      command: node_modules/.bin/nodemon --exec npm run start-dev
+      environment:
+        ENVIRONMENT: dev
+      ports:
+        - "7000:7000"
+      links:
+        - db
